@@ -1,0 +1,187 @@
+#include <Arduino.h>
+
+// Definiciones de pines
+#define VERDE_1A_PIN 4
+#define ROJO_1A_PIN 5
+
+#define VERDE_1B_PIN 14
+#define ROJO_1B_PIN 13
+
+#define VERDE_2A_PIN 18
+#define ROJO_2A_PIN 21
+
+#define VERDE_2B_PIN 22
+#define ROJO_2B_PIN 25
+
+#define AMARILLO_PARPADEANTE_PIN 15
+
+#define VERDE_3A_PIN 26
+#define ROJO_3A_PIN 32
+
+#define VERDE_3B_PIN 33
+#define ROJO_3B_PIN 34
+
+
+void setup() {
+  Serial.begin(9600);
+  // Configurar pines como salidas
+  pinMode(VERDE_1A_PIN, OUTPUT);
+  pinMode(ROJO_1A_PIN, OUTPUT);
+
+  pinMode(VERDE_1B_PIN, OUTPUT);
+  pinMode(ROJO_1B_PIN, OUTPUT);
+
+  pinMode(VERDE_2A_PIN, OUTPUT);
+  pinMode(ROJO_2A_PIN, OUTPUT);
+
+  pinMode(VERDE_2B_PIN, OUTPUT);
+  pinMode(ROJO_2B_PIN, OUTPUT);
+
+  pinMode(AMARILLO_PARPADEANTE_PIN, OUTPUT);
+
+  pinMode(VERDE_3A_PIN, OUTPUT);
+  pinMode(ROJO_3A_PIN, OUTPUT);
+
+  pinMode(VERDE_3B_PIN, OUTPUT);
+  pinMode(ROJO_3B_PIN, OUTPUT);
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    char command = Serial.read();
+
+    if (command == '1') {
+      digitalWrite(AMARILLO_PARPADEANTE_PIN,HIGH);
+      digitalWrite(VERDE_1A_PIN,HIGH);
+      digitalWrite(ROJO_1A_PIN,LOW);
+      digitalWrite(VERDE_1B_PIN,LOW);
+      digitalWrite(ROJO_1B_PIN,HIGH);
+      digitalWrite(VERDE_2A_PIN,LOW);
+      digitalWrite(ROJO_2A_PIN,HIGH);
+      digitalWrite(VERDE_2B_PIN,LOW);
+      digitalWrite(ROJO_2B_PIN,HIGH);
+      digitalWrite(VERDE_3A_PIN,LOW);
+      digitalWrite(ROJO_3A_PIN,HIGH);
+      digitalWrite(VERDE_3B_PIN,LOW);
+      digitalWrite(ROJO_3B_PIN,HIGH);
+      Serial.println("S1A en verde");
+      delay(5000);
+    } 
+    else if (command == '2') {
+      digitalWrite(AMARILLO_PARPADEANTE_PIN,HIGH);
+      digitalWrite(VERDE_1A_PIN,LOW);
+      digitalWrite(ROJO_1A_PIN,LOW);
+      digitalWrite(VERDE_1B_PIN,HIGH);
+      digitalWrite(ROJO_1B_PIN,LOW);
+      digitalWrite(VERDE_2A_PIN,LOW);
+      digitalWrite(ROJO_2A_PIN,HIGH);
+      digitalWrite(VERDE_2B_PIN,LOW);
+      digitalWrite(ROJO_2B_PIN,HIGH);
+      digitalWrite(VERDE_3A_PIN,LOW);
+      digitalWrite(ROJO_3A_PIN,HIGH);
+      digitalWrite(VERDE_3B_PIN,LOW);
+      digitalWrite(ROJO_3B_PIN,HIGH);
+      Serial.println("S1B en verde");
+      delay(5000);
+    }
+    else if (command == '3') {
+      digitalWrite(AMARILLO_PARPADEANTE_PIN,HIGH);
+      digitalWrite(VERDE_1A_PIN,LOW);
+      digitalWrite(ROJO_1A_PIN,LOW);
+      digitalWrite(VERDE_1B_PIN,LOW);
+      digitalWrite(ROJO_1B_PIN,HIGH);
+      digitalWrite(VERDE_2A_PIN,HIGH);
+      digitalWrite(ROJO_2A_PIN,LOW);
+      digitalWrite(VERDE_2B_PIN,LOW);
+      digitalWrite(ROJO_2B_PIN,HIGH);
+      digitalWrite(VERDE_3A_PIN,LOW);
+      digitalWrite(ROJO_3A_PIN,HIGH);
+      digitalWrite(VERDE_3B_PIN,LOW);
+      digitalWrite(ROJO_3B_PIN,HIGH);
+      Serial.println("S2A en verde");
+      delay(5000);
+    }
+    else if (command == '4') {
+      digitalWrite(AMARILLO_PARPADEANTE_PIN,HIGH);
+      digitalWrite(VERDE_1A_PIN,LOW);
+      digitalWrite(ROJO_1A_PIN,LOW);
+      digitalWrite(VERDE_1B_PIN,LOW);
+      digitalWrite(ROJO_1B_PIN,HIGH);
+      digitalWrite(VERDE_2A_PIN,LOW);
+      digitalWrite(ROJO_2A_PIN,HIGH);
+      digitalWrite(VERDE_2B_PIN,HIGH);
+      digitalWrite(ROJO_2B_PIN,LOW);
+      digitalWrite(VERDE_3A_PIN,LOW);
+      digitalWrite(ROJO_3A_PIN,HIGH);
+      digitalWrite(VERDE_3B_PIN,LOW);
+      digitalWrite(ROJO_3B_PIN,HIGH);
+      Serial.println("S2B en verde");
+      delay(5000);
+    }
+    else if (command == '5') {
+      digitalWrite(AMARILLO_PARPADEANTE_PIN,HIGH);
+      digitalWrite(VERDE_1A_PIN,LOW);
+      digitalWrite(ROJO_1A_PIN,LOW);
+      digitalWrite(VERDE_1B_PIN,LOW);
+      digitalWrite(ROJO_1B_PIN,HIGH);
+      digitalWrite(VERDE_2A_PIN,LOW);
+      digitalWrite(ROJO_2A_PIN,HIGH);
+      digitalWrite(VERDE_2B_PIN,LOW);
+      digitalWrite(ROJO_2B_PIN,HIGH);
+      digitalWrite(VERDE_3A_PIN,HIGH);
+      digitalWrite(ROJO_3A_PIN,LOW);
+      digitalWrite(VERDE_3B_PIN,LOW);
+      digitalWrite(ROJO_3B_PIN,HIGH);
+      Serial.println("S3A en verde");
+      delay(5000);
+    }
+    else if (command == '6') {
+      digitalWrite(AMARILLO_PARPADEANTE_PIN,HIGH);
+      digitalWrite(VERDE_1A_PIN,LOW);
+      digitalWrite(ROJO_1A_PIN,LOW);
+      digitalWrite(VERDE_1B_PIN,LOW);
+      digitalWrite(ROJO_1B_PIN,HIGH);
+      digitalWrite(VERDE_2A_PIN,LOW);
+      digitalWrite(ROJO_2A_PIN,HIGH);
+      digitalWrite(VERDE_2B_PIN,LOW);
+      digitalWrite(ROJO_2B_PIN,HIGH);
+      digitalWrite(VERDE_3A_PIN,LOW);
+      digitalWrite(ROJO_3A_PIN,HIGH);
+      digitalWrite(VERDE_3B_PIN,HIGH);
+      digitalWrite(ROJO_3B_PIN,LOW);
+      Serial.println("S3B en verde");
+      delay(5000);
+    }
+  }
+
+ else{
+  digitalWrite(AMARILLO_PARPADEANTE_PIN,HIGH);
+  digitalWrite(VERDE_1A_PIN,HIGH);
+  digitalWrite(ROJO_1A_PIN,LOW);
+  digitalWrite(VERDE_1B_PIN,HIGH);
+  digitalWrite(ROJO_1B_PIN,LOW);
+  digitalWrite(VERDE_2A_PIN,HIGH);
+  digitalWrite(ROJO_2A_PIN,LOW);
+  digitalWrite(VERDE_2B_PIN,HIGH);
+  digitalWrite(ROJO_2B_PIN,LOW);
+  digitalWrite(VERDE_3A_PIN,LOW);
+  digitalWrite(ROJO_3A_PIN,HIGH);
+  digitalWrite(VERDE_3B_PIN,LOW);
+  digitalWrite(ROJO_3B_PIN,HIGH);
+  delay(3000);
+  digitalWrite(AMARILLO_PARPADEANTE_PIN,HIGH);
+  digitalWrite(VERDE_1A_PIN,LOW);
+  digitalWrite(ROJO_1A_PIN,HIGH);
+  digitalWrite(VERDE_1B_PIN,LOW);
+  digitalWrite(ROJO_1B_PIN,HIGH);
+  digitalWrite(VERDE_2A_PIN,LOW);
+  digitalWrite(ROJO_2A_PIN,HIGH);
+  digitalWrite(VERDE_2B_PIN,LOW);
+  digitalWrite(ROJO_2B_PIN,HIGH);
+  digitalWrite(VERDE_3A_PIN,HIGH);
+  digitalWrite(ROJO_3A_PIN,LOW);
+  digitalWrite(VERDE_3B_PIN,HIGH);
+  digitalWrite(ROJO_3B_PIN,LOW);
+  delay(3000);
+ }
+}
