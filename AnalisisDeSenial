@@ -1,0 +1,80 @@
+import numpy as np
+from gpiozero import MCP3008, DigitalInputDevice
+from time import sleep, time
+
+adc0 = MCP3008(channel=0)
+adc1 = MCP3008(channel=1)
+adc2 = MCP3008(channel=2)
+adc3 = MCP3008(channel=3)
+
+# Configurar los pines digitales 
+micD0 = DigitalInputDevice(17, pull_up=True)
+micD1 = DigitalInputDevice(18, pull_up=True)
+micD2 = DigitalInputDevice(27, pull_up=True)
+micD3 = DigitalInputDevice(22, pull_up=True)
+
+umbral_sonido = 0.7
+duaracionGrabar = 5
+A = True
+B = False
+
+incioGrabacion = None
+frecuecniasDet = []
+tiempoTrancurrido = []
+
+while True:
+    if (
+        adc0.value > umbral_sonido
+        or adc1.value > umbral_sonido
+        or adc2.value > umbral_sonido
+        or adc3.value > umbral_sonido
+    ):
+        if incioGrabacion is None:
+            incioGrabacion = time()
+
+        tiempo_transcurrido = time() - incioGrabacion
+
+        if tiempo_transcurrido <= duaracionGrabar:
+            # Recopila los datos de los MCP3008
+            audio_data_0 = adc0.value
+            audio_data_1 = adc1.value
+            audio_data_2 = adc2.value
+            audio_data_3 = adc3.value
+            frecuecniasDet.extend([audio_data_0, audio_data_1, audio_data_2, audio_data_3])
+            tiempoTrancurrido.append(tiempo_transcurrido)
+
+            # Verificar el microfono activado
+            if micD0.value == 1:
+                print(f"Señal recibida en el canal 0.")
+            if micD1.value == 1:
+                print(f"Señal recibida en el canal 1.")
+            if micD2.value == 1:
+                print(f"Señal recibida en el canal 2.")
+            if micD3.value == 1:
+                print(f"Señal recibida en el canal 3.")
+
+        else:
+            break  #Termina el bucle de grabacion de 5s
+
+    sleep(0.01)
+
+# Verificar si se capturó suficiente tiempo para aplicar la FFT
+if len(tiempoTrancurrido) > 1:
+    # Transformada Rápida de Fourier A LOS DATOS 
+    fft_resultado = np.fft.fft(frecuecniasDet)
+
+    # Encuentra las frecuencias correspondientes
+    frecuencias = np.fft.fftfreq(len(frecuecniasDet), d=(tiempoTrancurrido[1] - tiempoTrancurrido[0]))
+
+    # Calcula el promedio de los valores absolutos de la FFT
+    promedio_fft = np.mean(np.abs(fft_resultado))
+    print("Promedio de los valores absolutos de la FFT:", promedio_fft)
+else:
+    print("No se capturó suficiente tiempo para aplicar la FFT.")
+
+    # Imprime si es el sonido de una ambulacia o no con una comparacion de promedios.
+
+if promedio_fft >= 2.5 and promedio_fft <= 4:
+    print(A)
+else:
+    print(B)
